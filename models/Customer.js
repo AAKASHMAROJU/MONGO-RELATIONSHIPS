@@ -64,6 +64,13 @@ const addCustomers = async () => {
   ]);
 };
 
+const findCustomers = async () => {
+  const data = await Customer.find({}).populate("orders");
+  console.log(...data[0]["orders"]);
+};
+
+findCustomers();
+
 // addCustomers()
 //   .then(() => console.log("Inserted Customers"))
 //   .catch((err) => console.log(err));
