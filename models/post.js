@@ -15,6 +15,11 @@ const userSchema = new Schema({
   name: String,
 });
 
+userSchema.post("findOneAndDelete", async (data) => {
+  console.log("POST Middleware after the query executes");
+  console.log(data);
+});
+
 const User = mongoose.model("User", userSchema);
 
 const postSchema = new Schema({
@@ -48,20 +53,27 @@ const addPosts = async () => {
       likes: 250,
       user: await User.findOne({ name: "Aakash" }),
     },
-    {
-      likes: 300,
-      user: await User.findOne({ name: "Bharath" }),
-    },
+    // {
+    //   likes: 300,
+    //   user: await User.findOne({ name: "Bharath" }),
+    // },
   ])
     .then(() => console.log("Inserted"))
     .catch((err) => console.log(err));
 };
 
-// addPosts();
+addPosts();
 
 const findPosts = async () => {
   const data = await Post.find({}).populate("user");
   console.log(data);
 };
 
-findPosts();
+// findPosts();
+
+// const delUser = async () => {
+//   let data = await User.findByIdAndDelete("669efd92d87f75e791ec0498");
+//   console.log(data);
+// };
+
+// delUser();
